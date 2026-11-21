@@ -1,1 +1,28 @@
+#venvs & cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+#env vars
 .env
+.env.*
+!.env.example
+
+#data of the project
+audio/
+transcripts/
+qdrant_db/
+chunks.json
+download.log
+*.m4a
+*.mp3
+*.wav
+*.info.json
+
+#temp files
+*.log
+*.tmp
+Thumbs.db
+.DS_Store
