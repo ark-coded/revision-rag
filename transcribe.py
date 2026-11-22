@@ -26,3 +26,10 @@ for audio_file in sorted(audio_dir.glob("*.m4a")):
         {"start": round(s.start, 2), "end": round(s.end, 2), "text": s.text.strip()}
         for s in segments
     ]
+
+    payload = {
+        "video_id": meta.get("id", audio_file.stem.split("_", 1)[-1]),
+        "title": meta.get("title", audio_file.stem),
+        "url": meta.get("webpage_url", ""),
+        "segments": records,
+    }
