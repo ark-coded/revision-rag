@@ -1,19 +1,7 @@
-import os
 import json
-import time
-from dotenv import load_dotenv
-from groq import Groq
-from sentence_transformers import SentenceTransformer
-from qdrant_client import QdrantClient
-from qdrant_client.models import (
-    
-    Distance,
-    Filter,
-    FieldCondition,
-    MatchValue,
-    PointStruct,
-    VectorParams,
-)
+from pathlib import Path
+from faster_whisper import WhisperModel, BatchedInferencePipeline
 
-load_dotenv()
-
+#"large-v3" for heavy Hinglish/technical terms" &  large-v3-turbo" for faster runs
+model = WhisperModel("large-v3", device="cuda", compute_type="int8_float16")
+batched_model = BatchedInferencePipeline(model=model)
