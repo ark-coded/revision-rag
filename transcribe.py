@@ -20,3 +20,9 @@ for audio_file in sorted(audio_dir.glob("*.m4a")):
     info_file = audio_dir / f"{audio_file.stem}.info.json"
     meta = json.loads(info_file.read_text(encoding="utf-8")) if info_file.exists() else {}
     
+    #Lower batch_size from 8 to 4 if CUDA error
+    segments, _ = batched_model.transcribe(str(audio_file), batch_size=8, vad_filter=True)
+    records = [
+        {"start": round(s.start, 2), "end": round(s.end, 2), "text": s.text.strip()}
+        for s in segments
+    ]
