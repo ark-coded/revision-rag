@@ -33,3 +33,5 @@ for audio_file in sorted(audio_dir.glob("*.m4a")):
         "url": meta.get("webpage_url", ""),
         "segments": records,
     }
+    out_file.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Transcribed: {payload['title']} ({len(records)} segments)")
