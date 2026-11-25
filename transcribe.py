@@ -1,9 +1,21 @@
 import json
 import subprocess
 import tempfile
-from pathlib import Path
 import numpy as np
 import soundfile as sf
+import os
+from pathlib import Path
+
+nvidia_root = Path(__file__).resolve().parent / ".venv" / "Lib" / "site-packages" / "nvidia"
+if nvidia_root.exists():
+    dll_dirs = [str(p) for p in nvidia_root.glob("*/bin") if p.is_dir()]
+    if dll_dirs:
+        os.environ["PATH"] = os.pathsep.join(dll_dirs) + os.pathsep + os.environ.get("PATH", "")
+        for d in dll_dirs:
+            try:
+                os.add_dll_directory(d)
+            except (OSError, AttributeError):
+                pass
 from faster_whisper import WhisperModel, BatchedInferencePipeline
 
 model = WhisperModel("large-v3", device="cuda", compute_type="int8_float16")
