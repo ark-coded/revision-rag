@@ -1,3 +1,6 @@
+#Imrpove the UI
+#Improve system prompt
+#Connect to render / railway
 import json
 import subprocess
 import tempfile
